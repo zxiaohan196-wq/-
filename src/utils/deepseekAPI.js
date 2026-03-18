@@ -1,8 +1,13 @@
 // src/utils/deepseekAPI.js
 
+const DEV_PROXY_URL =
+  typeof window !== 'undefined'
+    ? `${window.location.protocol}//${window.location.hostname}:4000/api/polish`
+    : 'http://localhost:4000/api/polish';
+
 const SILICONFLOW_API_URL =
   process.env.NODE_ENV === 'development'
-    ? 'http://localhost:4000/api/polish'
+    ? DEV_PROXY_URL
     : 'https://api.siliconflow.cn/v1/chat/completions';
 const API_KEY = process.env.REACT_APP_SILICONFLOW_API_KEY;
 
@@ -49,7 +54,8 @@ export async function polishApologyWithDeepSeek(apologyData) {
     console.log('🚀 开始调用 DeepSeek API...');
     console.log('📝 输入数据:', apologyData);
 
-    if (!API_KEY && SILICONFLOW_API_URL.startsWith('http')) {
+    // 生产环境直连上游时才需要前端读取 API Key（一般不建议这么做）
+    if (!API_KEY && SILICONFLOW_API_URL.includes('api.siliconflow')) {
       throw new Error(
         '未检测到 REACT_APP_SILICONFLOW_API_KEY。请在项目根目录 .env 中配置，并重启 npm start。'
       );

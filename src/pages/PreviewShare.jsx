@@ -31,7 +31,7 @@ function PreviewShare() {
     } catch (e) {
       // ignore
     }
-  }, []);
+  }, [apology]) 
 
   const handleCopy = () => {
     navigator.clipboard.writeText(shareUrl);

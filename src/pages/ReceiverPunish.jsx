@@ -11,6 +11,10 @@ function ReceiverPunish() {
   const videoRef = useRef(null);
 
   useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.volume = 0.3;
+    }
+
     const wantsSound = Boolean(location.state && location.state.autoplaySound);
     if (!wantsSound) return;
 
@@ -38,7 +42,7 @@ function ReceiverPunish() {
     >
       <div className="receiverView-header">
         <h1 className="receiverView-title">再哄哄我嘛</h1>
-        <p className="receiverView-subtitle">抽你pp一下下～</p>
+        <p className="receiverView-subtitle">再哄哄我嘛，我才能消气</p>
       </div>
 
       <div className="receiverView-hero">
@@ -61,6 +65,7 @@ function ReceiverPunish() {
                 try {
                   if (videoRef.current) {
                     videoRef.current.muted = false;
+                    videoRef.current.volume = 0.3;
                     await videoRef.current.play();
                   }
                 } catch (e) {

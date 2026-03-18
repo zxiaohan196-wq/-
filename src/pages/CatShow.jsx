@@ -69,9 +69,13 @@ function CatShow() {
         await sleep(FADE_MS + GAP_MS);
         current += 1;
       }
-
+      // 文字展示完之后再停止小猫动画
       if (!cancelled && videoRef.current) {
-        videoRef.current.pause();
+        try {
+          videoRef.current.pause();
+        } catch (e) {
+          // ignore
+        }
       }
     };
 

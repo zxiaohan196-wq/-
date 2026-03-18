@@ -68,8 +68,13 @@ function CatShowReceived() {
         current += 1;
       }
 
+      // 文字展示完之后再停止小猫动画
       if (!cancelled && videoRef.current) {
-        videoRef.current.pause();
+        try {
+          videoRef.current.pause();
+        } catch (e) {
+          // ignore
+        }
       }
 
       if (!cancelled) {
@@ -130,8 +135,6 @@ function CatShowReceived() {
                       // ignore
                     }
                   }
-                  // eslint-disable-next-line no-alert
-                  alert('小猫帮你解决问题了真开心，希望你们好好相处。');
                   navigate('/receiver-forgive', { state: { autoplaySound: true, apology } });
                 }}
               >
@@ -151,8 +154,6 @@ function CatShowReceived() {
                       // ignore
                     }
                   }
-                  // eslint-disable-next-line no-alert
-                  alert('咪觉得对方还没完全消气，还需要人再哄哄哦。');
                   navigate('/receiver-punish', { state: { autoplaySound: true, apology } });
                 }}
               >
